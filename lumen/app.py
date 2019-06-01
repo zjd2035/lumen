@@ -1,7 +1,7 @@
 import os
 from typing import List
 
-from flask import Blueprint, Flask, jsonify
+from flask import Blueprint, Flask
 
 from lumen.views import home_blueprint
 
