@@ -3,8 +3,24 @@ services:
   service:
     environment:
       FLASK_CONFIG: 'lumen.settings.LocalConfig'
-    build: .
+    build:
+      context: .
+      dockerfile: ./docker/service.dockerfile
+    image: lumen/service
     ports:
       - "5000:5000"
     volumes:
       - ./:/app
+
+  test:
+    environment:
+      FLASK_CONFIG: 'lumen.settings.LocalConfig'
+    build:
+      context: .
+      dockerfile: ./docker/devbox.dockerfile
+    image: lumen/devbox
+    command: /bin/bash
+    entrypoint: ./docker/run_tests.sh
+    volumes:
+      - ./:/app
+  
