@@ -1,6 +1,10 @@
 version: '3.4'
 services:
   service:
+    environment:
+      FLASK_CONFIG: 'lumen.settings.LocalConfig'
     build: .
     ports:
       - "5000:5000"
+    volumes:
+      - ./:/app
