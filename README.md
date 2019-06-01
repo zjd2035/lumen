@@ -8,6 +8,19 @@ Install Docker [here](https://docs.docker.com/v17.12/)
 
 This project ships with several containers that will help you do things like run your application locally, format and lint your code, and run your projects' test suite.
 
+### Test Container
+To run our test suite in a container, use `docker-compose run test`
+
+This will kick off:
+- code formatting using `black`
+- code linting using `flake8`
+- static type analysis using `mypy`
+- test suite with `pytest` 
+
+These commands are defined in `docker/run_tests.sh`
+
+This test container attempts to closely mimic the types of tasks that will be run in CI, and should be run prior to pushing code
+
 ### Service Container
 To run the application locally, use `docker-compose up service`
 
