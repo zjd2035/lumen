@@ -4,7 +4,8 @@ WORKDIR /code
 
 ENV FLASK_APP lumen/app.py
 ENV FLASK_RUN_HOST 0.0.0.0
-RUN apk add --no-cache gcc musl-dev linux-headers
+
+RUN apk add --no-cache gcc musl-dev linux-headers bash
 
 COPY requirements.txt requirements.txt
 
