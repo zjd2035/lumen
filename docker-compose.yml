@@ -35,4 +35,15 @@ services:
       - "5000:5000"
     volumes:
       - ./:/app
+    depends_on:
+      - db
+    networks:
+      - lumen
   
+  db:
+    image: postgres:11.3
+    networks:
+      - lumen
+
+networks:
+  lumen:
