@@ -1,5 +1,26 @@
 version: '3.4'
 services:
+  devbox:
+    build:
+      context: .
+      dockerfile: ./docker/devbox.dockerfile
+    image: lumen/devbox
+    command: /bin/bash
+    volumes:
+      - ./:/app
+
+  test:
+    environment:
+      FLASK_CONFIG: 'lumen.settings.LocalConfig'
+    build:
+      context: .
+      dockerfile: ./docker/devbox.dockerfile
+    image: lumen/devbox
+    command: /bin/bash
+    entrypoint: ./docker/run_tests.sh
+    volumes:
+      - ./:/app
+
   service:
     environment:
       FLASK_CONFIG: "lumen.settings.LocalConfig"
@@ -13,18 +34,6 @@ services:
     image: lumen/service
     ports:
       - "5000:5000"
-    volumes:
-      - ./:/app
-
-  test:
-    environment:
-      FLASK_CONFIG: 'lumen.settings.LocalConfig'
-    build:
-      context: .
-      dockerfile: ./docker/devbox.dockerfile
-    image: lumen/devbox
-    command: /bin/bash
-    entrypoint: ./docker/run_tests.sh
     volumes:
       - ./:/app
   

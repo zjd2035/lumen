@@ -10,5 +10,4 @@ logger = logging.getLogger(__name__)
 
 @home_blueprint.route("/", methods=["GET"])
 def index():
-
     return jsonify({"message": "hello world!"})
