@@ -46,3 +46,18 @@ A successful request to the `/` endpoint will return some json to you.
 }
 ```
 
+### Debugging
+
+The recommended approach to debugging this application would be to use `pdb`, the python debugger.
+It is included in the python standard library, and you can set a breakpoint in code using:
+
+```python
+print('test')
+
+import pdb; pdb.set_trace()
+
+print('test2')
+```
+
+When `pdb.set_trace()` is invoked, you will drop into the interactive debugger, and will be able to inspect the state of the application.
+Type `help` into the debugging prompt, and all available commands will be displayed.

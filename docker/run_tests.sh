@@ -1,11 +1,14 @@
 #!/bin/bash
 
-echo "running black..."
-black -l 120 lumen
-black -l 120 tests
+printf "\nrunning black..."
+black -l 120 --quiet lumen
+black -l 120 --quiet tests
 
-echo "running flake8..."
+printf "\n\nrunning flake8..."
 flake8
 
-echo "running tests"
+printf "\n\nrunning mypy..."
+mypy lumen --ignore-missing-imports
+
+printf "\n\nrunning tests...\n"
 pytest tests
