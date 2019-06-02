@@ -3,7 +3,7 @@ import sys
 import logging
 from typing import List
 
-from flask import Blueprint, Flask, jsonify
+from flask import Blueprint, Flask, jsonify, request
 
 from lumen.views import home_blueprint
 
@@ -27,6 +27,7 @@ def create_app() -> Flask:
     configure_logging()
     configure_blueprints(app, DEFAULT_BLUEPRINTS)
     configure_error_handlers(app)
+    configure_request_hooks(app)
 
     return app
 
@@ -67,3 +68,15 @@ def configure_error_handlers(app: Flask):
 
         logger.error(f"An instance of Base Exception was raised: {e}")
         return jsonify({"message": "There was an error", "error": str(e)})
+
+
+def configure_request_hooks(app: Flask) -> None:
+    """
+    Adds hooks into the lifecycle of flask requests
+    """
+
+    def _before_request_handler():
+        logger.info(f"Request made to flask application, method: {request.method}, endpoint: {request.path}")
+
+    # before each request is routed, invoke `_before_request_handler()`
+    app.before_request(_before_request_handler)
