@@ -23,11 +23,15 @@ jobs:
       - run:
           name: install dependencies
           command: |
-            echo "test"
-            cat requirements.txt
-            # python3 -m venv venv
-            # . venv/bin/activate
-            # pip install -r requirements.txt
+            python3 -m venv venv
+            . venv/bin/activate
+            pip install -r requirements.txt -r requirements-test.txt
+      - run:
+          name: black
+          command: |
+            . venv/bin/activate
+            black --check -l 120 lumen
+            black --check -l 120 tests
 
       # run tests!
       # this example uses Django's built-in test-runner
