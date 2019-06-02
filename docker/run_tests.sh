@@ -1,14 +1,16 @@
 #!/bin/bash
 
-printf "\nrunning black..."
+set -e
+
+printf "\nrunning black...\n"
 black -l 120 --quiet lumen
 black -l 120 --quiet tests
 
-printf "\n\nrunning flake8..."
+printf "\nrunning flake8...\n"
 flake8
 
-printf "\n\nrunning mypy..."
+printf "\nrunning mypy...\n"
 mypy lumen --ignore-missing-imports
 
-printf "\n\nrunning tests...\n"
+printf "\nrunning tests...\n"
 pytest tests
