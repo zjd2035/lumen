@@ -16,8 +16,7 @@ services:
       context: .
       dockerfile: ./docker/devbox.dockerfile
     image: lumen/devbox
-    command: /bin/bash
-    entrypoint: ./docker/run_tests.sh
+    entrypoint: /bin/bash ./docker/run_tests.sh
     volumes:
       - ./:/app
 
