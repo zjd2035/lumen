@@ -2,7 +2,11 @@ version: '3.4'
 services:
   service:
     environment:
-      FLASK_CONFIG: 'lumen.settings.LocalConfig'
+      FLASK_CONFIG: "lumen.settings.LocalConfig"
+      FLASK_APP: "lumen.app:create_app()"
+      FLASK_RUN_HOST: 0.0.0.0
+      FLASK_ENV: local
+      FLASK_DEBUG: "True"
     build:
       context: .
       dockerfile: ./docker/service.dockerfile
