@@ -69,6 +69,7 @@ def configure_error_handlers(app: Flask):
         logger.error(f"An instance of Base Exception was raised: {e}")
         return jsonify({"message": "There was an error", "error": str(e)})
 
+
 def configure_request_hooks(app: Flask) -> None:
     """
     Adds hooks into the lifecycle of flask requests
