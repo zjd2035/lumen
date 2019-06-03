@@ -1,6 +1,7 @@
 .pytest_cache/
 .mypy_cache/
 __pycache__*
+db-data/
 
 # a script in the project root useful for testing quick code snippets
 testpad.py
