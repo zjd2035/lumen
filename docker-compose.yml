@@ -35,4 +35,25 @@ services:
       - "5000:5000"
     volumes:
       - ./:/app
+    depends_on:
+      - db
+    networks:
+      - lumen
   
+  db:
+    image: postgres:11.3
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: dbpassword
+      POSTGRES_USER: dbuser
+      POSTGRES_DB: lumendb
+    ports:
+      - '5432:5432'
+    networks:
+      - lumen
+    # volumes lets the data persist when db container is restarted
+    volumes:
+      - ./db-data:/var/lib/postgresql/data
+
+networks:
+  lumen:
