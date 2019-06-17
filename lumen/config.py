@@ -1,3 +1,5 @@
+import os
+
 class BaseConfig:
     """
     Base configuration object where default values are set.
@@ -7,6 +9,9 @@ class BaseConfig:
 
     DEBUG = False
     TESTING = False
+    CSRF_ENABLED = True
+    SQLALCHEMY_DATABASE_URI = os.environ.get("POSTGRES_DATABASE_URI")
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 
 class LocalConfig(BaseConfig):
@@ -16,7 +21,6 @@ class LocalConfig(BaseConfig):
 
     ENV = "local"
     DEBUG = True
-    FOO = "Joshua"
 
 
 class TestingConfig(BaseConfig):
@@ -32,7 +36,7 @@ class DevConfig(BaseConfig):
     """
     Configuration for development environment, which should represent our hosted dev setup in kubernetes.
 
-    Contrary to local development where application code should be written, "dev" is our playground to test out infrastructure level changes
+    Contrary to local development where application code should be written, "development" is our playground to test out infrastructure level changes
     """
 
     ENV = "development"

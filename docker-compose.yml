@@ -11,7 +11,7 @@ services:
 
   test:
     environment:
-      FLASK_CONFIG: 'lumen.settings.LocalConfig'
+      FLASK_CONFIG: 'lumen.config.LocalConfig'
     build:
       context: .
       dockerfile: ./docker/devbox.dockerfile
@@ -22,10 +22,11 @@ services:
 
   service:
     environment:
-      FLASK_CONFIG: "lumen.settings.LocalConfig"
+      FLASK_CONFIG: "lumen.config.LocalConfig"
       FLASK_APP: "lumen.app:create_app()"
       FLASK_RUN_HOST: 0.0.0.0
       FLASK_ENV: local
+      POSTGRES_DATABASE_URI: "postgresql://dbuser:dbpassword@localdb:5432/lumendb"
       FLASK_DEBUG: "True"
     build:
       context: .
@@ -43,6 +44,7 @@ services:
   db:
     image: postgres:11.3
     restart: always
+    container_name: localdb
     environment:
       POSTGRES_PASSWORD: dbpassword
       POSTGRES_USER: dbuser
@@ -51,9 +53,8 @@ services:
       - '5432:5432'
     networks:
       - lumen
-    # volumes lets the data persist when db container is restarted
     volumes:
-      - ./db-data:/var/lib/postgresql/data
+      - ./db-data:/app/postgresql/data
 
 networks:
   lumen:
