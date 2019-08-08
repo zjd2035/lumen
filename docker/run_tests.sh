@@ -3,8 +3,8 @@
 set -e
 
 printf "\nrunning black...\n"
-black -l 120 --quiet lumen
-black -l 120 --quiet tests
+black -l 120 --quiet -S lumen
+black -l 120 --quiet -S tests
 
 printf "\nrunning flake8...\n"
 flake8

@@ -4,11 +4,13 @@ import logging
 from typing import List
 
 from flask import Blueprint, Flask, jsonify, request
+from flask_cors import CORS
+
+# from flask_migrate import Migrate
 
 from lumen.views import home_blueprint
 
 DEFAULT_BLUEPRINTS = [home_blueprint]
-
 logger = logging.getLogger()
 
 
@@ -19,17 +21,27 @@ def create_app() -> Flask:
         app.config.from_object(os.environ["FLASK_CONFIG"])
     else:
         # default to LocalConfig
-        app.config.from_object("lumen.settings.LocalConfig")
+        app.config.from_object("lumen.config.LocalConfig")
 
     logger.info("Creating the application")
 
     # configure application
+    CORS(app)
     configure_logging()
     configure_blueprints(app, DEFAULT_BLUEPRINTS)
     configure_error_handlers(app)
     configure_request_hooks(app)
 
-    return app
+    # initialize the database
+    from lumen.models import db
+
+    db.init_app(app)
+    # Migrate(app, db)
+
+    with app.app_context():
+        db.create_all()
+
+        return app
 
 
 def configure_logging() -> None:
