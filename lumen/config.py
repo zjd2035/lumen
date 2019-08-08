@@ -1,5 +1,6 @@
 import os
 
+
 class BaseConfig:
     """
     Base configuration object where default values are set.

@@ -15,16 +15,16 @@ def index():
     if data is None:
         return jsonify({"message": "Hello there. Be on your way. Nothing to see here."})
 
-    if 'owner' in data and 'address' in data:
-        new_property = Property(owner=data['owner'], address=data['address'])
+    if "owner" in data and "address" in data:
+        new_property = Property(owner=data["owner"], address=data["address"])
         db.session.add(new_property)
         db.session.commit()
         return jsonify({"message": "Property created! (I hope.)"})
-    elif 'owner' in data:
-        found_property = Property.query.filter(Property.owner == data['owner']).first()
+    elif "owner" in data:
+        found_property = Property.query.filter(Property.owner == data["owner"]).first()
         return jsonify({"message": "Hello, " + found_property.owner + " of " + found_property.address})
-    elif 'address' in data:
-        found_property = Property.query.filter(Property.address == data['address']).first()
+    elif "address" in data:
+        found_property = Property.query.filter(Property.address == data["address"]).first()
         return jsonify({"message": "Hello, " + found_property.owner + " of " + found_property.address})
 
-    return jsonify({"message": "Failed. This is what we got:", "owner": owner_name, "address": address})
+    return jsonify({"message": "Failed. This is what we got:", "owner": data["owner"], "address": data["address"]})

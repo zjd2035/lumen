@@ -3,16 +3,16 @@ import sys
 import logging
 from typing import List
 
-# from sqlalchemy_utils import create_database, database_exists
 from flask import Blueprint, Flask, jsonify, request
 from flask_cors import CORS
-from flask_migrate import Migrate
-from flask_sqlalchemy import SQLAlchemy
+
+# from flask_migrate import Migrate
 
 from lumen.views import home_blueprint
 
 DEFAULT_BLUEPRINTS = [home_blueprint]
 logger = logging.getLogger()
+
 
 def create_app() -> Flask:
     app = Flask(__name__)
@@ -32,14 +32,9 @@ def create_app() -> Flask:
     configure_error_handlers(app)
     configure_request_hooks(app)
 
-    # conditionally create database
-    # if app.env != "production":
-    #     db_uri = app.config["POSTGRES_DB_URI"]
-    #     if not database_exists(db_url):
-    #         create_database(db_uri)
-
     # initialize the database
     from lumen.models import db
+
     db.init_app(app)
     # Migrate(app, db)
 
